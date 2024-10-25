@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+#game {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    border: 2px solid #333;
+    overflow: hidden;
+    background-color: #fff;
+}
+.object {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    cursor: pointer;
+}
