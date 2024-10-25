@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Objects</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #game {
+            position: relative;
+            width: 300px;
+            height: 500px;
+            border: 2px solid #333;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .object {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game"></div>
+<div id="score">Score: 0</div>
+
+<script>
+    const gameArea = document.getElementById('game');
+    const scoreDisplay = document.getElementById('score');
+    let score = 0;
+
+    function createFallingObject() {
+        const object = document.createElement('div');
+        object.className = 'object';
+        object.style.left = Math.random() * (gameArea.clientWidth - 30) + 'px';
+        gameArea.appendChild(object);
+
+        let fallSpeed = Math.random() * 3 + 2; // Speed between 2 and 5
+        let fallInterval = setInterval(() => {
+            object.style.top = (object.offsetTop + fallSpeed) + 'px';
+
+            if (object.offsetTop > gameArea.clientHeight) {
+                clearInterval(fallInterval);
+                gameArea.removeChild(object);
+                alert('Game Over! Your score was: ' + score);
+                resetGame();
+            }
+        }, 100);
+
+        object.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = 'Score: ' + score;
+            clearInterval(fallInterval);
+            gameArea.removeChild(object);
+        });
+    }
+
+    function resetGame() {
+        score = 0;
+        scoreDisplay.textContent = 'Score: 0';
+        gameArea.innerHTML = '';
+    }
+
+    setInterval(createFallingObject, 1000); // Create a new object every second
+</script>
+
+</body>
+</html>
